@@ -1,0 +1,23 @@
+group 'org.dohrm'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    baseName = rootProject.name
+    version = version
+}
+
+dependencies {
+
+    compile('com.google.guava:guava:18.0')
+
+
+    testCompile('junit:junit:4.11')
+}
