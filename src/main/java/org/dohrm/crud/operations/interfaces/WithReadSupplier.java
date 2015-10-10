@@ -9,7 +9,7 @@ import java.util.function.Supplier;
  * @author michaeldohr
  * @since 08/10/15
  */
-public interface WithReadSupplier<T> {
+public interface WithReadSupplier<T> extends FinalReadOperation<T> {
 
     Supplier<Optional<T>> getSupplier();
 

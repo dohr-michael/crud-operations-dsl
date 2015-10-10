@@ -3,7 +3,7 @@ package org.dohrm.crud.operations.interfaces;
 import org.dohrm.crud.exceptions.UnauthorisedAccessException;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Predicate;
+import java.util.function.Function;
 
 /**
  * @author michaeldohr
@@ -11,19 +11,19 @@ import java.util.function.Predicate;
  */
 public interface WithAsyncSecurityPredicate<T> {
 
-    Predicate<T> getSecurityPredicate();
+    Function<T, CompletableFuture<Boolean>> getAsyncSecurityPredicate();
 
     /**
      * Validate security.
      *
      * @param toTest bean to test.
      */
-    default CompletableFuture<T> validateSecurity(final CompletableFuture<T> toTest) {
-        return toTest.thenApplyAsync((t) -> {
-            if (!getSecurityPredicate().test(t)) {
+    default CompletableFuture<T> validateAsyncSecurity(final CompletableFuture<T> toTest) {
+        return toTest.thenCompose(v -> getAsyncSecurityPredicate().apply(v).thenApply(r -> {
+            if (!r) {
                 throw new UnauthorisedAccessException();
             }
-            return t;
-        });
+            return v;
+        }));
     }
 }

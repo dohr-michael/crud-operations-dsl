@@ -1,5 +1,5 @@
-group 'org.dohrm'
-version '1.0-SNAPSHOT'
+project.group 'org.dohrm'
+project.version '0.0.1'
 
 apply plugin: 'java'
 

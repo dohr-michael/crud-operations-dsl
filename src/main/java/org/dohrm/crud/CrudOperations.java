@@ -1,7 +1,9 @@
 package org.dohrm.crud;
 
-import org.dohrm.crud.operations.ReadAsyncOperation;
-import org.dohrm.crud.operations.ReadOperation;
+import org.dohrm.crud.operations.AsyncReadOperationBuilder;
+import org.dohrm.crud.operations.ReadOperationBuilder;
+import org.dohrm.crud.operations.interfaces.IsAsyncReadOperation;
+import org.dohrm.crud.operations.interfaces.IsReadOperation;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -24,15 +26,16 @@ public final class CrudOperations {
 
     /**
      * Start read process.
+     *
      * @param read supplier.
-     * @param <T> type of return.
+     * @param <T>  type of return.
      * @return Operation.
      */
-    public static <T> ReadOperation<T> readOf(Supplier<Optional<T>> read) {
-        return new ReadOperation<>(read);
+    public static <T> IsReadOperation<T> readOf(Supplier<Optional<T>> read) {
+        return new ReadOperationBuilder<>(read);
     }
 
-    public static <T> ReadAsyncOperation<T> readAsyncOf(Supplier<CompletableFuture<Optional<T>>> supplier) {
-        return new ReadAsyncOperation<>(supplier);
+    public static <T> IsAsyncReadOperation<T> readAsyncOf(Supplier<CompletableFuture<Optional<T>>> supplier) {
+        return new AsyncReadOperationBuilder<>(supplier);
     }
 }

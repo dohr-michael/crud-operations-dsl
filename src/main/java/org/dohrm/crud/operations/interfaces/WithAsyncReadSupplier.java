@@ -10,12 +10,11 @@ import java.util.function.Supplier;
  * @author michaeldohr
  * @since 08/10/15
  */
-public interface WithAsyncReadSupplier<T> {
+public interface WithAsyncReadSupplier<T> extends FinalAsyncReadOperation<T> {
 
-    Supplier<CompletableFuture<Optional<T>>> getSupplier();
+    Supplier<CompletableFuture<Optional<T>>> getAsyncSupplier();
 
-    default CompletableFuture<T> read() {
-        return getSupplier().get()
-                .thenApply(o -> (T) o.orElseThrow(ResourceNotFoundException::new));
+    default CompletableFuture<T> readAsync() {
+        return getAsyncSupplier().get().thenApply(o -> (T) o.orElseThrow(ResourceNotFoundException::new));
     }
 }

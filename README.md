@@ -1,5 +1,5 @@
 # crud-operations-dsl
-Based to java 8, strategy pattern. Help to create crud operation with some validations.
+Based to java 8. Help to create crud operation with some validations.
 
 ## Sample
 
@@ -7,32 +7,59 @@ Based to java 8, strategy pattern. Help to create crud operation with some valid
 
 * Without validation - will throws a `ResourceNotFoundException` if the result of the `Supplier` is an empty `Optional`.
   
-  * Sync
+  * Start by Sync Supplier
 
 
           CrudOperations
-              .readOf(() -> Optional.of("ResultOfYourDatabaseCall"))
+              .readOf(() -> Optional<ResultType>)
               .read();
-  * Async
+  * Start by Async Supplier
   
   
           CrudOperations
-              .readAsyncOf(() -> CompletableFuture.completedFuture(Optional.of("ResultOfYourDatabaseCall")))
-              .read();
+              .readAsyncOf(() -> CompletableFuture<Optional<ResultType>>))
+              .readAsync();
 
 * With security validation - will call the `Predicate` with the result of the `Supplier` (if not empty). If the validation is wrong will throws an `UnauthorisedAccessException`
 
-  * Sync
+  * Start by Sync Supplier
 
 
           CrudOperations
-              .readOf(() -> Optional.of("ResultOfYourDatabaseCall"))
-              .withSecurityCheck(s -> true)
-              .read();
-  * Async
+                .readOf(() -> Optional<ResultType>)
+                .withSecurityCheck(Predicate<ResultType>)
+                .read();
+
+          ----
+
+          CrudOperations
+                .readOf(() -> Optional<ResultType>)
+                .withSecurityCheck(Function<ResultType, CompletableFuture<Boolean>>)
+                .readAsync();
+
+  * Start by Async Supplier
 
 
           CrudOperations
-              .readAsyncOf(() -> CompletableFuture.completedFuture(Optional.of("ResultOfYourDatabaseCall")))
-              .withSecurityCheck(s -> true)
-              .read();
+                .readAsyncOf(() -> CompletableFuture<Optional<ResultType>>)
+                .withSecurityCheck(Predicate<ResultType>)
+                .readAsync();
+
+          ----
+
+          CrudOperations
+                .readAsyncOf(() -> CompletableFuture<Optional<ResultType>>)
+                .withSecurityCheck(Function<ResultType, CompletableFuture<Boolean>>)
+                .readAsync();
+
+### Creation
+
+`Not yet implemented`
+
+### Update
+
+`Not yet implemented`
+
+### Delete
+
+`Not yet implemented`

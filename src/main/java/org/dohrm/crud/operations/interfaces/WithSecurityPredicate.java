@@ -14,11 +14,13 @@ public interface WithSecurityPredicate<T> {
 
     /**
      * Validate security.
+     *
      * @param toTest bean to test.
      */
-    default void validateSecurity(final T toTest) {
+    default T validateSecurity(final T toTest) {
         if (!getSecurityPredicate().test(toTest)) {
             throw new UnauthorisedAccessException();
         }
+        return toTest;
     }
 }
