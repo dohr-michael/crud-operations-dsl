@@ -20,7 +20,7 @@ import static org.junit.Assert.assertEquals;
  * @since 10/10/15
  */
 @RunWith(BlockJUnit4ClassRunner.class)
-public class ReadOperationSyncTest {
+public class ReadOperationTest {
 
     private final String value = "TOTO";
     private final Supplier<Optional<String>> valueSupplier = () -> Optional.of(value);
