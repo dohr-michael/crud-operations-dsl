@@ -54,11 +54,49 @@ Based to java 8. Help to create crud operation with some validations.
 
 ### Creation
 
-`Not yet implemented`
+      CrudOperations
+            .createOf(request, Function<RequestType, RequestType>)
+            .create(); // returns <RequestType>
+
+      -------
+
+      CrudOperations
+            .createOf(request, Function<RequestType, RequestType>)
+            .withValidation(Predicate<RequestType>)
+            .create(); // returns <RequestType>
+
+      -------
+
+      CrudOperations
+            .createOf(request, Function<RequestType, RequestType>)
+            .withValidation(Function<RequestType, CompletableFuture<Boolean>)
+            .createAsync(); // returns CompletableFuture<RequestType>
+
+      -------
+
+      CrudOperations
+            .createAsyncOf(request, Function<RequestType, CompletableFuture<RequestType>>)
+            .createAsync(); // returns CompletableFuture<RequestType>
+
+      -------
+
+      CrudOperations
+            .createAsyncOf(request, Function<RequestType, CompletableFuture<RequestType>>)
+            .withValidation(Predicate<RequestType>)
+            .createAsync(); // returns CompletableFuture<RequestType>
+
+      -------
+
+      CrudOperations
+            .createAsyncOf(request, Function<RequestType, CompletableFuture<RequestType>>)
+            .withValidation(Function<RequestType, CompletableFuture<Boolean>)
+            .createAsync(); // returns CompletableFuture<RequestType>
 
 ### Update
 
-`Not yet implemented`
+* The creation process will follow the next `flow`
+
+![Creation Flow](docs/CrudUpdateFlow.jpg)
 
 ### Delete
 

@@ -1,13 +1,7 @@
 package org.dohrm.crud;
 
-import org.dohrm.crud.operations.AsyncCreateOperationBuilder;
-import org.dohrm.crud.operations.AsyncReadOperationBuilder;
-import org.dohrm.crud.operations.CreateOperationBuilder;
-import org.dohrm.crud.operations.ReadOperationBuilder;
-import org.dohrm.crud.operations.interfaces.IsAsyncCreateOperation;
-import org.dohrm.crud.operations.interfaces.IsAsyncReadOperation;
-import org.dohrm.crud.operations.interfaces.IsCreateOperation;
-import org.dohrm.crud.operations.interfaces.IsReadOperation;
+import org.dohrm.crud.operations.*;
+import org.dohrm.crud.operations.interfaces.*;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -50,5 +44,9 @@ public final class CrudOperations {
 
     public static <T> IsAsyncCreateOperation<T> createAsyncOf(T request, Function<T, CompletableFuture<T>> saveFunction) {
         return new AsyncCreateOperationBuilder<>(request, saveFunction);
+    }
+
+    public static <T> IsUpdateOperation<T> updateOf(T request, Function<T, T> saveFunction) {
+        return new UpdateOperationBuilder<>(request, saveFunction);
     }
 }
